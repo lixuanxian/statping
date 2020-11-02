@@ -301,6 +301,14 @@ dockerhub:
 	docker push statping/statping:v${VERSION}
 	docker push statping/statping
 
+dockerhub-code4demo:
+	docker build --build-arg http_proxy=${http_proxy} --build-arg https_proxy=${https_proxy} --build-arg  VERSION=${VERSION} -t statping/statping:base  -f Dockerfile.base .
+	docker build --build-arg http_proxy=${http_proxy} --build-arg https_proxy=${https_proxy} --build-arg VERSION=${VERSION} -t statping/statping:latest   -f Dockerfile .
+	docker tag  statping/statping:latest code4demo/statping
+	docker tag  statping/statping:latest code4demo/statping:v${VERSION}
+	docker push code4demo/statping:v${VERSION}
+	docker push code4demo/statping
+
 docker-build-dev:
 	docker build --build-arg VERSION=${VERSION} -t statping/statping:latest --no-cache -f Dockerfile .
 	docker tag hunterlong/statping:dev hunterlong/statping:dev-v${VERSION}
